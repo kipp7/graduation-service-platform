@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Clock, Shield, Star, ArrowRight, GraduationCap, Code, FileText } from "lucide-react";
+import { CheckCircle, Clock, Shield, ArrowRight, GraduationCap } from "lucide-react";
 
 export default function Home() {
   return (
