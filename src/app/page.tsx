@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,9 +43,11 @@ export default function Home() {
             🚀 985/211名校导师团队，平均7-15天交付，<strong>承诺100%原创</strong>，助您自信答辞
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button size="lg" className="px-10 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300">
-              🎯 免费评估我的项目 <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link href="/order">
+              <Button size="lg" className="px-10 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300">
+                🎯 免费评估我的项目 <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="px-10 py-4 text-lg font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition-all duration-300">
               📚 查看成功案例
             </Button>
@@ -153,9 +156,11 @@ export default function Home() {
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-8 inline-block">
               <h3 className="text-2xl font-bold mb-4">还有其他困难？</h3>
               <p className="text-blue-100 mb-6">立即联系我们，获得专业建议</p>
-              <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold">
-                免费咨询专家 →
-              </Button>
+              <Link href="/order">
+                <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold">
+                  免费咨询专家 →
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -216,9 +221,11 @@ export default function Home() {
                     <span>🔄 免费修改：2次</span>
                   </div>
                 </div>
-                <Button className="w-full bg-green-600 hover:bg-green-700 font-semibold">
-                  立即选择 🚀
-                </Button>
+                <Link href="/order">
+                  <Button className="w-full bg-green-600 hover:bg-green-700 font-semibold">
+                    立即选择 🚀
+                  </Button>
+                </Link>
                 <p className="text-xs text-gray-500 text-center mt-2">适合：已有基础思路，需要专业指导</p>
               </CardContent>
             </Card>
@@ -274,9 +281,11 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg font-bold py-3 shadow-lg">
-                  🎯 立即抢购（省2000元）
-                </Button>
+                <Link href="/order">
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg font-bold py-3 shadow-lg">
+                    🎯 立即抢购（省2000元）
+                  </Button>
+                </Link>
                 <p className="text-xs text-center mt-3 text-gray-600">
                   <strong>适合：</strong>希望获得完整解决方案的同学 · 90%用户选择
                 </p>
@@ -332,9 +341,11 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg font-bold py-3 shadow-lg">
-                  👑 VIP定制服务
-                </Button>
+                <Link href="/order">
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg font-bold py-3 shadow-lg">
+                    👑 VIP定制服务
+                  </Button>
+                </Link>
                 <p className="text-xs text-center mt-3 text-gray-600">
                   <strong>适合：</strong>追求卓越品质，希望获得导师级指导的同学
                 </p>
@@ -456,9 +467,11 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
-            <Button size="lg" variant="secondary" className="px-10 py-4 text-xl font-bold bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-2xl border-0">
-              🎯 立即免费咨询（价值299元）
-            </Button>
+            <Link href="/order">
+              <Button size="lg" variant="secondary" className="px-10 py-4 text-xl font-bold bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-2xl border-0">
+                🎯 立即免费咨询（价值299元）
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="px-10 py-4 text-xl font-bold text-white border-2 border-white hover:bg-white hover:text-blue-600 shadow-xl">
               📞 微信：BiSheHelper
             </Button>
