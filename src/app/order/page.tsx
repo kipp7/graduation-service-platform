@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -89,7 +90,9 @@ const packages = [
 ];
 
 export default function OrderPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const totalSteps = 4;
 
   const {
@@ -113,7 +116,8 @@ export default function OrderPage() {
       // 模拟提交
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      alert('需求提交成功！我们会在24小时内联系您！');
+      // 设置提交成功状态
+      setIsSubmitted(true);
     } catch (_error) {
       alert('提交失败，请重试或联系客服');
     }
@@ -186,6 +190,66 @@ export default function OrderPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 提交成功后的支付选项 */}
+        {isSubmitted ? (
+          <div className="text-center space-y-8">
+            <Card className="border-0 shadow-xl bg-gradient-to-r from-green-50 to-blue-50">
+              <CardHeader className="text-center pb-8">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-10 h-10 text-green-600" />
+                </div>
+                <CardTitle className="text-3xl font-bold text-gray-900 mb-4">
+                  🎉 需求提交成功！
+                </CardTitle>
+                <CardDescription className="text-lg text-gray-600">
+                  我们已收到您的项目需求，专业团队将在24小时内与您联系确认详细方案
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border">
+                  <h3 className="text-xl font-semibold mb-4">下一步操作</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">💰 立即支付定金</h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        支付定金可立即启动项目，确保优先处理您的需求
+                      </p>
+                      <Button 
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        onClick={() => router.push('/payment')}
+                      >
+                        立即支付定金 →
+                      </Button>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">📞 等待客服联系</h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        客服会在24小时内联系您确认需求详情和报价
+                      </p>
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-gray-300"
+                        onClick={() => router.push('/')}
+                      >
+                        返回首页
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                  <h4 className="font-medium text-amber-800 mb-2">📋 接下来会发生什么？</h4>
+                  <ul className="text-sm text-amber-700 space-y-1">
+                    <li>• 24小时内客服联系确认项目详情</li>
+                    <li>• 提供详细的技术方案和时间安排</li>
+                    <li>• 确认最终报价和付款方式</li>
+                    <li>• 签署服务协议并开始项目执行</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* 步骤1：项目基本信息 */}
           {currentStep === 1 && (
@@ -668,6 +732,7 @@ export default function OrderPage() {
             )}
           </div>
         </form>
+        )}
       </div>
     </div>
   );
