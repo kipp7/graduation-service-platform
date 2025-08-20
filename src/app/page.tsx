@@ -18,9 +18,11 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-8">
               <a href="#pricing" className="text-gray-600 hover:text-blue-600">服务套餐</a>
               <a href="#cases" className="text-gray-600 hover:text-blue-600">成功案例</a>
-              <a href="#faq" className="text-gray-600 hover:text-blue-600">常见问题</a>
+              <Link href="/faq" className="text-gray-600 hover:text-blue-600">常见问题</Link>
               <Button variant="outline">咨询客服</Button>
-              <Button>立即下单</Button>
+              <Link href="/order">
+                <Button>立即下单</Button>
+              </Link>
             </div>
           </div>
         </div>
