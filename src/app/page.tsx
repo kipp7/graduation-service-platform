@@ -284,35 +284,60 @@ export default function Home() {
             </Card>
 
             {/* L档套餐 */}
-            <Card className="relative">
-              <CardHeader>
-                <Badge className="w-fit mb-2 bg-purple-100 text-purple-800">全定制</Badge>
-                <CardTitle className="text-2xl">旗舰版</CardTitle>
-                <CardDescription>完整解决方案</CardDescription>
-                <div className="text-3xl font-bold text-gray-900">
-                  ¥8,999
-                  <span className="text-base font-normal text-gray-600">+</span>
+            <Card className="relative border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50">
+              <CardHeader className="text-center">
+                <Badge className="w-fit mb-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white mx-auto">
+                  👑 VIP定制 · 导师级服务
+                </Badge>
+                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  至尊版
+                </CardTitle>
+                <CardDescription className="text-gray-700">
+                  顶级定制服务，一对一专属导师全程陪伴
+                </CardDescription>
+                <div className="mt-4">
+                  <div className="text-sm text-gray-500 line-through">原价 ¥12,999</div>
+                  <div className="text-4xl font-bold text-gray-900">
+                    ¥6,999
+                    <span className="text-lg font-normal text-gray-600">/项目</span>
+                  </div>
+                  <div className="text-purple-600 font-semibold">新用户专享价</div>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3">
-                  {[
-                    "定制硬件+完整代码",
-                    "实验全流程+数据分析",
-                    "论文终稿(可直接提交)",
-                    "答辩PPT+演练指导",
-                    "45-60天交付",
-                    "2次免费修改",
-                    "一对一技术支持",
-                    "售后维护服务"
-                  ].map((feature, index) => (
-                    <li key={index} className="flex items-center text-sm">
-                      <CheckCircle className="h-4 w-4 text-purple-500 mr-3" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button className="w-full mt-6 bg-purple-600 hover:bg-purple-700">立即选择</Button>
+                <div className="space-y-4 mb-6">
+                  <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                    <h4 className="font-bold text-purple-800 mb-3">👑 VIP专属服务</h4>
+                    <ul className="space-y-2 text-sm">
+                      {[
+                        "🎯 个人专属导师（985/211教授级别）",
+                        "🏭 完整产品设计+样机制作+测试验证",
+                        "💎 高质量论文终稿（可直接提交答辞）",
+                        "🎤 答辞PPT定制+现场演练指导",
+                        "🔍 查重优化+格式审核+导师预审",
+                        "🏆 专利申请指导（可选）"
+                      ].map((feature, index) => (
+                        <li key={index} className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-3 rounded-lg border border-purple-200">
+                    <div className="text-center text-sm space-y-1">
+                      <div className="text-purple-700 font-semibold">⚡ VIP通道：15-25天交付</div>
+                      <div className="text-purple-700">🛠️ 无限次修改 · 📞 24小时专属客服</div>
+                      <div className="text-purple-700">🎁 赠送：简历优化+面试辅导</div>
+                    </div>
+                  </div>
+                </div>
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg font-bold py-3 shadow-lg">
+                  👑 VIP定制服务
+                </Button>
+                <p className="text-xs text-center mt-3 text-gray-600">
+                  <strong>适合：</strong>追求卓越品质，希望获得导师级指导的同学
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -339,70 +364,211 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA区域 */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-4">
-            还在犹豫？免费咨询一下吧
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            专业顾问1对1分析你的需求，制定最优方案
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="px-8 py-3">
-              <Shield className="mr-2 h-5 w-5" />
-              免费咨询
-            </Button>
-            <Button size="lg" variant="outline" className="px-8 py-3 text-white border-white hover:bg-white hover:text-blue-600">
-              <Clock className="mr-2 h-5 w-5" />
-              查看更多案例
+      {/* 客户评价 */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              听听他们怎么说
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              3000+成功案例，98%的学生都给了我们5星好评
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "李同学",
+                school: "华中科技大学 · 电子信息工程",
+                comment: "选择实战版真的是最明智的决定！从选题到最终答辞，老师全程指导，硬件设计很专业，论文质量也很高。答辞时老师都夸我的作品完成度高，最终拿了优秀毕业设计！",
+                rating: 5,
+                avatar: "👨‍🎓",
+                grade: "优秀毕业设计"
+              },
+              {
+                name: "王同学", 
+                school: "西安电子科技大学 · 计算机科学",
+                comment: "时间很紧张，只剩一个月就要答辞了。选择了VIP服务，专属导师真的很负责，每天都会跟进进度。最后顺利通过答辞，成绩还不错。服务确实值这个价格！",
+                rating: 5,
+                avatar: "👩‍🎓",
+                grade: "答辞成绩:良"
+              },
+              {
+                name: "张同学",
+                school: "北京理工大学 · 自动化",
+                comment: "指导版很适合我这种有一定基础的。老师给的建议很中肯，代码框架也很规范。虽然自己也要投入不少精力，但学到了很多东西，推荐给有基础的同学！",
+                rating: 5,
+                avatar: "👨‍🎓", 
+                grade: "自主完成度高"
+              }
+            ].map((review, index) => (
+              <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="text-3xl mr-4">{review.avatar}</div>
+                    <div>
+                      <h4 className="font-bold text-lg">{review.name}</h4>
+                      <p className="text-sm text-gray-600">{review.school}</p>
+                      <div className="flex items-center mt-1">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <span key={i} className="text-yellow-400">⭐</span>
+                        ))}
+                        <Badge className="ml-2 bg-green-100 text-green-800 text-xs">
+                          {review.grade}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed text-sm italic">
+                    &ldquo;{review.comment}&rdquo;
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" className="px-8 py-3">
+              查看更多真实评价 📝
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <GraduationCap className="h-6 w-6" />
-                <span className="text-lg font-semibold">毕设助手</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                专业的毕业设计辅导平台，帮助学生顺利完成学业。
-              </p>
+      {/* CTA区域 */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <Badge className="mb-6 bg-white/20 text-white border-white/30">
+            ⏰ 限时特惠 · 今日下单立减500元
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            毕业季倒计时<br />
+            <span className="text-yellow-300">现在行动，还来得及！</span>
+          </h2>
+          <p className="text-xl md:text-2xl mb-4 text-blue-100">
+            🎓 距离答辞还有几个月？别让毕业设计成为你的绊脚石！
+          </p>
+          <p className="text-lg mb-10 text-blue-200 max-w-4xl mx-auto">
+            专业导师团队已待命，3天出初步方案，7-15天完整交付<br/>
+            <strong className="text-yellow-300">现在咨询，免费获得选题建议+可行性分析</strong>
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+            <Button size="lg" variant="secondary" className="px-10 py-4 text-xl font-bold bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-2xl border-0">
+              🎯 立即免费咨询（价值299元）
+            </Button>
+            <Button size="lg" variant="outline" className="px-10 py-4 text-xl font-bold text-white border-2 border-white hover:bg-white hover:text-blue-600 shadow-xl">
+              📞 微信：BiSheHelper
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="flex items-center justify-center gap-2 text-blue-100">
+              <Shield className="h-4 w-4" />
+              7天无条件退款
             </div>
-            <div>
-              <h4 className="font-semibold mb-4">服务</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>硬件设计</li>
-                <li>软件开发</li>
-                <li>论文写作</li>
-                <li>答辞指导</li>
-              </ul>
+            <div className="flex items-center justify-center gap-2 text-blue-100">
+              <CheckCircle className="h-4 w-4" />
+              100%原创保证
             </div>
-            <div>
-              <h4 className="font-semibold mb-4">支持</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>常见问题</li>
-                <li>服务条款</li>
-                <li>隐私政策</li>
-                <li>联系我们</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">联系方式</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>客服微信：BiSheHelper</li>
-                <li>QQ群：123456789</li>
-                <li>邮箱：help@bishe.com</li>
-              </ul>
+            <div className="flex items-center justify-center gap-2 text-blue-100">
+              <Clock className="h-4 w-4" />
+              24小时客服在线
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 毕设助手. 仅供学习辅导使用，请遵守学术诚信原则。</p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div className="md:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
+                  <GraduationCap className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                    毕设助手
+                  </span>
+                  <div className="text-sm text-gray-400">Professional Graduation Design Assistant</div>
+                </div>
+              </div>
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                🎓 专业的毕业设计辅导平台，已服务3000+毕业生<br/>
+                💎 985/211名校导师团队，提供硬件+软件+论文一站式解决方案<br/>
+                🏆 98%答辞通过率，承诺100%原创，助你高分毕业
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Badge className="bg-blue-100 text-blue-800">3000+成功案例</Badge>
+                <Badge className="bg-green-100 text-green-800">98%通过率</Badge>
+                <Badge className="bg-purple-100 text-purple-800">7天退款保障</Badge>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-lg mb-6 text-blue-400">🎯 核心服务</h4>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  嵌入式硬件设计
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  软件系统开发
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  学术论文写作
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  答辞演练指导
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  专利申请辅导
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-lg mb-6 text-blue-400">📞 联系我们</h4>
+              <div className="space-y-4">
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <div className="font-semibold text-yellow-400 mb-2">🔥 24小时在线客服</div>
+                  <div className="text-sm">
+                    <div className="mb-1">微信：<span className="font-mono text-blue-400">BiSheHelper</span></div>
+                    <div className="mb-1">QQ群：<span className="font-mono text-blue-400">123456789</span></div>
+                    <div>邮箱：<span className="font-mono text-blue-400">help@bishe.com</span></div>
+                  </div>
+                </div>
+                <div className="text-sm text-gray-400">
+                  ⏰ 服务时间：全年无休，24小时响应<br/>
+                  📍 服务区域：全国高校（含港澳台）
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-gray-400 text-sm">
+                <p>&copy; 2024 毕设助手. 保留所有权利.</p>
+                <p className="mt-1">
+                  ⚠️ <strong className="text-yellow-400">重要声明</strong>：本平台仅提供学习辅导服务，所有交付内容仅供参考学习，请遵守学术诚信原则
+                </p>
+              </div>
+              <div className="flex gap-4 text-sm text-gray-400">
+                <a href="#" className="hover:text-blue-400 transition-colors">服务条款</a>
+                <a href="#" className="hover:text-blue-400 transition-colors">隐私政策</a>
+                <a href="#" className="hover:text-blue-400 transition-colors">退款政策</a>
+                <a href="#" className="hover:text-blue-400 transition-colors">联系我们</a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
