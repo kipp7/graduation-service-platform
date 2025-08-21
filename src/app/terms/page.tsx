@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Shield, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export default function TermsPage() {
@@ -43,7 +42,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. 服务定义</h2>
             <div className="space-y-4 text-gray-700">
               <p>
-                "毕设助手"提供的服务包括但不限于：毕业设计选题指导、技术方案设计、
+                毕设助手提供的服务包括但不限于：毕业设计选题指导、技术方案设计、
                 代码开发指导、硬件设计辅导、实验数据分析、论文结构优化、答辩演练等学术辅导服务。
               </p>
               <p>

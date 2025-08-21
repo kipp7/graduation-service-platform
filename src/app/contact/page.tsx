@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, MessageCircle, Phone, Mail, Clock, MapPin, Users, Headphones } from 'lucide-react';
 
