@@ -1,10 +1,15 @@
+'use client';
+
+import { useState } from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Clock, Shield, ArrowRight, GraduationCap } from "lucide-react";
+import { CheckCircle, Clock, Shield, ArrowRight, GraduationCap, Menu, X } from "lucide-react";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* 导航栏 */}
@@ -15,6 +20,8 @@ export default function Home() {
               <GraduationCap className="h-8 w-8 text-blue-600" />
               <span className="text-xl font-bold text-gray-900">毕设助手</span>
             </div>
+            
+            {/* 桌面端导航 */}
             <div className="hidden md:flex items-center space-x-8">
               <a href="#pricing" className="text-gray-600 hover:text-blue-600">服务套餐</a>
               <a href="#cases" className="text-gray-600 hover:text-blue-600">成功案例</a>
@@ -24,7 +31,56 @@ export default function Home() {
                 <Button>立即下单</Button>
               </Link>
             </div>
+
+            {/* 移动端汉堡菜单按钮 */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
           </div>
+
+          {/* 移动端菜单 */}
+          {mobileMenuOpen && (
+            <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b shadow-lg z-50">
+              <div className="px-4 py-6 space-y-4">
+                <a 
+                  href="#pricing" 
+                  className="block py-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  服务套餐
+                </a>
+                <a 
+                  href="#cases" 
+                  className="block py-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  成功案例
+                </a>
+                <Link 
+                  href="/faq" 
+                  className="block py-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  常见问题
+                </Link>
+                <div className="pt-4 space-y-3">
+                  <Button variant="outline" className="w-full">咨询客服</Button>
+                  <Link href="/order" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full">立即下单</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 

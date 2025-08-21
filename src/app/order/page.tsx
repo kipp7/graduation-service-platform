@@ -118,7 +118,7 @@ export default function OrderPage() {
       
       // 设置提交成功状态
       setIsSubmitted(true);
-    } catch (_error) {
+    } catch {
       alert('提交失败，请重试或联系客服');
     }
   };
