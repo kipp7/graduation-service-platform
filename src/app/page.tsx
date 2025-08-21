@@ -367,12 +367,12 @@ export default function Home() {
                   顶级定制服务，一对一专属导师全程陪伴
                 </CardDescription>
                 <div className="mt-4">
-                  <div className="text-sm text-gray-500 line-through">原价 ¥3,199</div>
+                  <div className="text-sm text-gray-500 line-through">原价 ¥3,299</div>
                   <div className="text-4xl font-bold text-gray-900">
-                    ¥1,699
+                    ¥1,799
                     <span className="text-lg font-normal text-gray-600">/项目</span>
                   </div>
-                  <div className="text-purple-600 font-semibold">新用户专享价 ¥1,599</div>
+                  <div className="text-purple-600 font-semibold">新用户专享价 ¥1,699</div>
                 </div>
               </CardHeader>
               <CardContent>
