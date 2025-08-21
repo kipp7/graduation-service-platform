@@ -248,12 +248,12 @@ export default function Home() {
                 <CardTitle className="text-2xl font-bold">指导版</CardTitle>
                 <CardDescription className="text-gray-600">适合有一定基础，需要专业指导的同学</CardDescription>
                 <div className="mt-4">
-                  <div className="text-sm text-gray-500 line-through">原价 ¥1,999</div>
+                  <div className="text-sm text-gray-500 line-through">原价 ¥1,299</div>
                   <div className="text-4xl font-bold text-gray-900">
-                    ¥999
+                    ¥599
                     <span className="text-lg font-normal text-gray-600">/项目</span>
                   </div>
-                  <div className="text-green-600 font-semibold text-sm">新用户立减500元</div>
+                  <div className="text-green-600 font-semibold text-sm">新用户立减200元</div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -303,13 +303,13 @@ export default function Home() {
                   半定制化解决方案，90%学生的最佳选择
                 </CardDescription>
                 <div className="mt-6">
-                  <div className="text-sm text-gray-500 line-through">原价 ¥4,999</div>
+                  <div className="text-sm text-gray-500 line-through">原价 ¥2,299</div>
                   <div className="text-5xl font-bold text-gray-900">
-                    ¥2,999
+                    ¥1,099
                     <span className="text-lg font-normal text-gray-600">/项目</span>
                   </div>
-                  <div className="text-blue-600 font-semibold">新用户仅需 ¥2,499</div>
-                  <div className="text-red-500 text-sm font-medium">🔥 限时特价，节省2000元</div>
+                  <div className="text-blue-600 font-semibold">新用户仅需 ¥999</div>
+                  <div className="text-red-500 text-sm font-medium">🔥 限时特价，节省600元</div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -341,7 +341,7 @@ export default function Home() {
                 </div>
                 <Link href="/order">
                   <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg font-bold py-3 shadow-lg">
-                    🎯 立即抢购（省2000元）
+                    🎯 立即抢购（省600元）
                   </Button>
                 </Link>
                 <p className="text-xs text-center mt-3 text-gray-600">
@@ -363,12 +363,12 @@ export default function Home() {
                   顶级定制服务，一对一专属导师全程陪伴
                 </CardDescription>
                 <div className="mt-4">
-                  <div className="text-sm text-gray-500 line-through">原价 ¥12,999</div>
+                  <div className="text-sm text-gray-500 line-through">原价 ¥3,999</div>
                   <div className="text-4xl font-bold text-gray-900">
-                    ¥6,999
+                    ¥1,499
                     <span className="text-lg font-normal text-gray-600">/项目</span>
                   </div>
-                  <div className="text-purple-600 font-semibold">新用户专享价</div>
+                  <div className="text-purple-600 font-semibold">新用户专享价 ¥1,299</div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -417,8 +417,8 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {[
                 { name: "48小时加急", price: "加价20%" },
-                { name: "答辩培训", price: "¥499-999" },
-                { name: "查重优化", price: "¥199-399" },
+                { name: "答辩培训", price: "¥299-599" },
+                { name: "查重优化", price: "¥99-299" },
                 { name: "二次打样", price: "按成本计费" }
               ].map((service, index) => (
                 <Card key={index} className="text-center">
