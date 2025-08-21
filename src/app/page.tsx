@@ -531,7 +531,7 @@ export default function Home() {
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="px-10 py-4 text-xl font-bold text-white border-2 border-white hover:bg-white hover:text-blue-600 shadow-xl">
-              📞 微信：BiSheHelper
+              📞 微信：Kipp-7
             </Button>
           </div>
           
@@ -612,9 +612,9 @@ export default function Home() {
                 <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
                   <div className="font-semibold text-yellow-400 mb-2">🔥 24小时在线客服</div>
                   <div className="text-sm">
-                    <div className="mb-1">微信：<span className="font-mono text-blue-400">BiSheHelper</span></div>
-                    <div className="mb-1">QQ群：<span className="font-mono text-blue-400">123456789</span></div>
-                    <div>邮箱：<span className="font-mono text-blue-400">help@bishe.com</span></div>
+                    <div className="mb-1">微信：<span className="font-mono text-blue-400">Kipp-7</span></div>
+                    <div className="mb-1">QQ：<span className="font-mono text-blue-400">3080479527</span></div>
+                    <div>邮箱：<span className="font-mono text-blue-400">13377035712@163.com</span></div>
                   </div>
                 </div>
                 <div className="text-sm text-gray-400">

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, BookOpen, Shield, Clock, DollarSign, RefreshCw, AlertTriangle, CheckCircle, Phone, Mail } from 'lucide-react';
+import { ArrowLeft, BookOpen, Shield, Clock, DollarSign, RefreshCw, AlertTriangle, CheckCircle, Phone, Mail, MessageCircle } from 'lucide-react';
 
 export default function FAQPage() {
   return (
@@ -414,11 +414,15 @@ export default function FAQPage() {
                       <div className="space-y-2">
                         <div className="flex items-center gap-3">
                           <Mail className="w-4 h-4 text-blue-600" />
-                          <span className="text-sm">邮箱：service@graduation-helper.com</span>
+                          <span className="text-sm">邮箱：13377035712@163.com</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <Phone className="w-4 h-4 text-blue-600" />
-                          <span className="text-sm">微信：graduation-helper</span>
+                          <span className="text-sm">微信：Kipp-7</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <MessageCircle className="w-4 h-4 text-blue-600" />
+                          <span className="text-sm">QQ：3080479527</span>
                         </div>
                       </div>
                     </div>

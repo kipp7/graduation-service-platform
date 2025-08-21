@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, CreditCard, Smartphone, QrCode, Shield, Clock, CheckCircle, AlertTriangle, Copy, Phone, MessageCircle } from 'lucide-react';
+import { ArrowLeft, CreditCard, Smartphone, QrCode, Shield, Clock, CheckCircle, AlertTriangle, Copy, Phone, MessageCircle, Mail } from 'lucide-react';
 
 export default function PaymentPage() {
   const [selectedPayment, setSelectedPayment] = useState<'alipay' | 'wechat' | null>(null);
@@ -280,11 +280,15 @@ export default function PaymentPage() {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <MessageCircle className="w-4 h-4 text-green-600" />
-                          <span>微信：graduation-helper</span>
+                          <span>微信：Kipp-7</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <Phone className="w-4 h-4 text-green-600" />
-                          <span>QQ：123456789</span>
+                          <span>QQ：3080479527</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-4 h-4 text-green-600" />
+                          <span>邮箱：13377035712@163.com</span>
                         </div>
                       </div>
                     </div>
