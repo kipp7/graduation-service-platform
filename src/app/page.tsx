@@ -26,7 +26,9 @@ export default function Home() {
               <a href="#pricing" className="text-gray-600 hover:text-blue-600">服务套餐</a>
               <a href="#cases" className="text-gray-600 hover:text-blue-600">成功案例</a>
               <Link href="/faq" className="text-gray-600 hover:text-blue-600">常见问题</Link>
-              <Button variant="outline">咨询客服</Button>
+              <Link href="/contact">
+                <Button variant="outline">咨询客服</Button>
+              </Link>
               <Link href="/order">
                 <Button>立即下单</Button>
               </Link>
@@ -73,7 +75,9 @@ export default function Home() {
                   常见问题
                 </Link>
                 <div className="pt-4 space-y-3">
-                  <Button variant="outline" className="w-full">咨询客服</Button>
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">咨询客服</Button>
+                  </Link>
                   <Link href="/order" onClick={() => setMobileMenuOpen(false)}>
                     <Button className="w-full">立即下单</Button>
                   </Link>
@@ -634,10 +638,10 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex gap-4 text-sm text-gray-400">
-                <a href="#" className="hover:text-blue-400 transition-colors">服务条款</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">隐私政策</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">退款政策</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">联系我们</a>
+                <Link href="/terms" className="hover:text-blue-400 transition-colors">服务条款</Link>
+                <Link href="/privacy" className="hover:text-blue-400 transition-colors">隐私政策</Link>
+                <Link href="/refund" className="hover:text-blue-400 transition-colors">退款政策</Link>
+                <Link href="/contact" className="hover:text-blue-400 transition-colors">联系我们</Link>
               </div>
             </div>
           </div>
