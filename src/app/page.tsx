@@ -517,8 +517,8 @@ export default function Home() {
             ⏰ 限时特惠 · 今日下单立减500元
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            毕业季倒计时<br />
-            <span className="text-yellow-300">现在行动，还来得及！</span>
+            <span className="text-yellow-300">专业毕设辅导服务</span><br />
+            现在行动，还来得及！
           </h2>
           <p className="text-xl md:text-2xl mb-4 text-blue-100">
             🎓 距离答辞还有几个月？别让毕业设计成为你的绊脚石！
@@ -632,7 +632,7 @@ export default function Home() {
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-gray-400 text-sm">
-                <p>&copy; 2024 毕设助手. 保留所有权利.</p>
+                <p>&copy; 2025 毕设助手. 保留所有权利.</p>
                 <p className="mt-1">
                   ⚠️ <strong className="text-yellow-400">重要声明</strong>：本平台仅提供学习辅导服务，所有交付内容仅供参考学习，请遵守学术诚信原则
                 </p>
