@@ -509,52 +509,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA区域 */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <Badge className="mb-6 bg-white/20 text-white border-white/30">
-            ⏰ 限时特惠 · 今日下单立减500元
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            <span className="text-yellow-300">专业毕设辅导服务</span><br />
-            现在行动，还来得及！
-          </h2>
-          <p className="text-xl md:text-2xl mb-4 text-blue-100">
-            🎓 距离答辞还有几个月？别让毕业设计成为你的绊脚石！
-          </p>
-          <p className="text-lg mb-10 text-blue-200 max-w-4xl mx-auto">
-            专业导师团队已待命，3天出初步方案，7-15天完整交付<br/>
-            <strong className="text-yellow-300">现在咨询，免费获得选题建议+可行性分析</strong>
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
-            <Link href="/order">
-              <Button size="lg" variant="secondary" className="px-10 py-4 text-xl font-bold bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-2xl border-0">
-                🎯 立即免费咨询（价值299元）
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="px-10 py-4 text-xl font-bold text-white border-2 border-white hover:bg-white hover:text-blue-600 shadow-xl">
-              📞 微信：Kipp-7
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div className="flex items-center justify-center gap-2 text-blue-100">
-              <Shield className="h-4 w-4" />
-              7天无条件退款
-            </div>
-            <div className="flex items-center justify-center gap-2 text-blue-100">
-              <CheckCircle className="h-4 w-4" />
-              100%原创保证
-            </div>
-            <div className="flex items-center justify-center gap-2 text-blue-100">
-              <Clock className="h-4 w-4" />
-              24小时客服在线
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">

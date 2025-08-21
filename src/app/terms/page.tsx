@@ -13,7 +13,7 @@ export default function TermsPage() {
             返回首页
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">服务条款</h1>
-          <p className="text-gray-600 mt-2">最后更新：2024年8月21日</p>
+          <p className="text-gray-600 mt-2">最后更新：2025年8月21日</p>
         </div>
       </div>
 
