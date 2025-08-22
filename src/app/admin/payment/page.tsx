@@ -32,7 +32,7 @@ export default function AdminPaymentPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [confirming, setConfirming] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -52,19 +52,21 @@ export default function AdminPaymentPage() {
         
         // 为每个订单获取支付状态
         const ordersWithPaymentStatus = await Promise.all(
-          ordersList.map(async (order: any) => {
+          ordersList.map(async (order: unknown) => {
             try {
-              const paymentResponse = await fetch(`/api/payment/status/${order.orderNumber}`);
+              const orderItem = order as { orderNumber: string };
+              const paymentResponse = await fetch(`/api/payment/status/${orderItem.orderNumber}`);
               const paymentData = await paymentResponse.json();
               
               return {
-                ...order,
+                ...(order as Record<string, unknown>),
                 ...paymentData.data
               };
             } catch (error) {
-              console.error(`获取订单 ${order.orderNumber} 支付状态失败:`, error);
+              const orderItem = order as { orderNumber: string };
+              console.error(`获取订单 ${orderItem.orderNumber} 支付状态失败:`, error);
               return {
-                ...order,
+                ...(order as Record<string, unknown>),
                 paymentStatus: 'pending',
                 remainingMinutes: 0,
                 isExpired: true

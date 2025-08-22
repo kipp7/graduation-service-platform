@@ -47,7 +47,7 @@ export default function TrackingPage() {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   const [trackingData, setTrackingData] = useState<TrackingData | null>(null)
-  const [phoneOrdersData, setPhoneOrdersData] = useState<any>(null)
+  const [phoneOrdersData, setPhoneOrdersData] = useState<{ totalOrders: number; orders: unknown[] } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -227,26 +227,28 @@ export default function TrackingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {phoneOrdersData.orders.map((order: any, index: number) => (
-                      <div key={order.orderId} className="border rounded-lg p-4 bg-gray-50">
+                    {phoneOrdersData.orders.map((order: unknown) => {
+                      const orderItem = order as { orderId: string; projectTitle: string; orderNumber: string; projectType: string; status: string; progress: number; createdAt: string };
+                      return (
+                      <div key={orderItem.orderId} className="border rounded-lg p-4 bg-gray-50">
                         <div className="flex justify-between items-start mb-3">
                           <div>
-                            <h3 className="font-semibold text-lg">{order.projectTitle}</h3>
-                            <p className="text-sm text-gray-600">订单号：{order.orderNumber}</p>
+                            <h3 className="font-semibold text-lg">{orderItem.projectTitle}</h3>
+                            <p className="text-sm text-gray-600">订单号：{orderItem.orderNumber}</p>
                           </div>
                           <Badge className="bg-blue-100 text-blue-800">
-                            {order.statusDisplay}
+                            {orderItem.status}
                           </Badge>
                         </div>
                         
                         <div className="grid grid-cols-2 gap-4 mb-3">
                           <div>
                             <span className="text-sm text-gray-500">创建时间：</span>
-                            <span className="text-sm">{formatDate(order.createdAt)}</span>
+                            <span className="text-sm">{formatDate(orderItem.createdAt)}</span>
                           </div>
                           <div>
                             <span className="text-sm text-gray-500">项目类型：</span>
-                            <span className="text-sm">{getProjectTypeDisplay(order.projectType)}</span>
+                            <span className="text-sm">{getProjectTypeDisplay(orderItem.projectType)}</span>
                           </div>
                         </div>
 
@@ -254,12 +256,12 @@ export default function TrackingPage() {
                         <div className="mb-3">
                           <div className="flex justify-between text-sm mb-1">
                             <span>进度</span>
-                            <span>{order.progress}%</span>
+                            <span>{orderItem.progress}%</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
                             <div 
                               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${order.progress}%` }}
+                              style={{ width: `${orderItem.progress}%` }}
                             ></div>
                           </div>
                         </div>
@@ -269,7 +271,7 @@ export default function TrackingPage() {
                           size="sm"
                           onClick={() => {
                             setQueryType('order')
-                            setOrderNumber(order.orderNumber)
+                            setOrderNumber(orderItem.orderNumber)
                             setPhoneOrdersData(null)
                             handleTracking()
                           }}
@@ -277,7 +279,8 @@ export default function TrackingPage() {
                           查看详细追踪
                         </Button>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>

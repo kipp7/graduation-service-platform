@@ -170,7 +170,8 @@ export default function OrderPage() {
       }
     } catch (error) {
       console.error('❌ 订单提交失败:', error);
-      alert(`网络错误：${error.message}，请检查网络连接后重试`);
+      const errorMessage = error instanceof Error ? error.message : '未知错误';
+      alert(`网络错误：${errorMessage}，请检查网络连接后重试`);
     }
   };
 

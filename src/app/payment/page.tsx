@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, CreditCard, Smartphone, QrCode, Shield, Clock, CheckCircle, AlertTriangle, Copy, Phone, MessageCircle, Mail, Timer, RefreshCw } from 'lucide-react';
 
-export default function PaymentPage() {
+function PaymentPageContent() {
   const searchParams = useSearchParams();
   const [selectedPayment, setSelectedPayment] = useState<'alipay' | 'wechat' | null>(null);
   const [copied, setCopied] = useState(false);
@@ -543,5 +543,13 @@ export default function PaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <PaymentPageContent />
+    </Suspense>
   );
 }

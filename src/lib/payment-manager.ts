@@ -188,7 +188,7 @@ export async function checkOrderPaymentStatus(orderNumber: string) {
 /**
  * 手动标记订单为已支付（客服功能）
  */
-export async function manualConfirmPayment(orderNumber: string, operator: string, note?: string) {
+export async function manualConfirmPayment(orderNumber: string, _operator: string, _note?: string) {
   return await confirmPayment(orderNumber, {
     paymentMethod: 'manual',
     transactionId: `MANUAL_${Date.now()}`,

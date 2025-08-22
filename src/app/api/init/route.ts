@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils'
 import { initializeApp, checkEnvironmentConfig } from '@/lib/app-init'
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // 检查环境配置
     checkEnvironmentConfig()

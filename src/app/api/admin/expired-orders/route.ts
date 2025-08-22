@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils'
 import { processExpiredOrders } from '@/lib/payment-manager'
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // TODO: 添加管理员权限验证
     // const authHeader = request.headers.get('authorization')
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   try {
     // 获取过期订单统计信息
-    const { prisma } = require('@/lib/prisma')
+    const { prisma } = await import('@/lib/prisma')
     
     const now = new Date()
     const expiredCount = await prisma.order.count({
