@@ -26,6 +26,7 @@ export default function Home() {
               <a href="#pricing" className="text-gray-600 hover:text-blue-600">服务套餐</a>
               <a href="#cases" className="text-gray-600 hover:text-blue-600">成功案例</a>
               <Link href="/faq" className="text-gray-600 hover:text-blue-600">常见问题</Link>
+              <Link href="/tracking" className="text-gray-600 hover:text-blue-600">订单追踪</Link>
               <Link href="/contact">
                 <Button variant="outline">咨询客服</Button>
               </Link>
@@ -73,6 +74,13 @@ export default function Home() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   常见问题
+                </Link>
+                <Link 
+                  href="/tracking" 
+                  className="block py-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  订单追踪
                 </Link>
                 <div className="pt-4 space-y-3">
                   <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
@@ -213,18 +221,7 @@ export default function Home() {
               </Card>
             ))}
           </div>
-          
-          <div className="text-center">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-8 inline-block">
-              <h3 className="text-2xl font-bold mb-4">还有其他困难？</h3>
-              <p className="text-blue-100 mb-6">立即联系我们，获得专业建议</p>
-              <Link href="/order">
-                <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold">
-                  免费咨询专家 →
-                </Button>
-              </Link>
-            </div>
-          </div>
+
         </div>
       </section>
 

@@ -21,7 +21,7 @@ const orderSchema = z.object({
   // 基本信息
   projectTitle: z.string().min(5, '项目标题至少5个字符').max(100, '项目标题不能超过100个字符'),
   projectType: z.enum(['hardware', 'software', 'paper', 'full']),
-  description: z.string().min(50, '需求描述至少50个字符').max(1000, '需求描述不能超过1000个字符'),
+  description: z.string().min(10, '需求描述至少10个字符').max(1000, '需求描述不能超过1000个字符').optional().or(z.literal('')),
   
   // 技术要求
   techRequirements: z.array(z.string()).min(1, '请至少选择一项技术要求'),
@@ -110,16 +110,67 @@ export default function OrderPage() {
 
   const onSubmit = async (data: OrderFormData) => {
     try {
-      // 这里可以集成到后端API或发送邮件
-      console.log('表单数据:', data);
+      console.log('🚀 开始提交订单...');
+      console.log('📝 表单数据:', data);
       
-      // 模拟提交
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // 显示提交状态
+      alert('正在提交订单，请稍候...');
       
-      // 设置提交成功状态
-      setIsSubmitted(true);
-    } catch {
-      alert('提交失败，请重试或联系客服');
+      // 格式化数据为API格式
+      const orderData = {
+        customerInfo: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          school: data.school,
+          major: data.major
+        },
+        projectInfo: {
+          title: data.projectTitle,
+          type: data.package === 'S' ? 'guidance' : 
+                data.package === 'M' ? 'practical' : 'vip',
+          requirements: data.description,
+          deadline: data.deadline
+        },
+        pricing: {
+          basePrice: data.package === 'S' ? 1599 : 
+                    data.package === 'M' ? 2999 : 4999,
+          totalAmount: data.package === 'S' ? 1599 : 
+                      data.package === 'M' ? 2999 : 4999,
+          additionalServices: data.urgency === 'urgent' ? ['加急服务'] : 
+                            data.urgency === 'emergency' ? ['紧急加急服务'] : []
+        }
+      };
+
+      // 调用创建订单API
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // 订单创建成功
+        console.log('✅ 订单创建成功:', result.data);
+        alert(`订单创建成功！订单号：${result.data.orderNumber}`);
+        
+        // 设置提交成功状态并显示订单号
+        setIsSubmitted(true);
+        
+        // 3秒后跳转到支付页面
+        setTimeout(() => {
+          router.push(`/payment?orderNumber=${result.data.orderNumber}&orderId=${result.data.orderId}`);
+        }, 3000);
+      } else {
+        // 处理错误
+        console.error('❌ 订单创建失败:', result.error);
+        alert(`订单创建失败：${result.error.message || '未知错误，请重试'}`);
+      }
+    } catch (error) {
+      console.error('❌ 订单提交失败:', error);
+      alert(`网络错误：${error.message}，请检查网络连接后重试`);
     }
   };
 
@@ -318,7 +369,7 @@ export default function OrderPage() {
                 {/* 需求描述 */}
                 <div>
                   <Label htmlFor="description" className="text-lg font-semibold mb-2 block">
-                    详细需求描述 <span className="text-red-500">*</span>
+                    详细需求描述 <span className="text-gray-500">(可选)</span>
                   </Label>
                   <Textarea
                     id="description"
@@ -327,7 +378,7 @@ export default function OrderPage() {
                     {...register('description')}
                   />
                   <div className="flex justify-between text-sm text-gray-500 mt-1">
-                    <span>{errors.description?.message || '至少50个字符'}</span>
+                    <span>{errors.description?.message || '详细描述有助于我们提供更精准的方案'}</span>
                     <span>{watchedValues.description?.length || 0}/1000</span>
                   </div>
                 </div>

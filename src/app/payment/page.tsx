@@ -1,29 +1,171 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, CreditCard, Smartphone, QrCode, Shield, Clock, CheckCircle, AlertTriangle, Copy, Phone, MessageCircle, Mail } from 'lucide-react';
+import { ArrowLeft, CreditCard, Smartphone, QrCode, Shield, Clock, CheckCircle, AlertTriangle, Copy, Phone, MessageCircle, Mail, Timer, RefreshCw } from 'lucide-react';
 
 export default function PaymentPage() {
+  const searchParams = useSearchParams();
   const [selectedPayment, setSelectedPayment] = useState<'alipay' | 'wechat' | null>(null);
-  // 预留支付金额和订单号状态（后续功能扩展使用）
-  // const [paymentAmount, setPaymentAmount] = useState('');
-  // const [orderNumber, setOrderNumber] = useState('');
   const [copied, setCopied] = useState(false);
-
-  // 模拟订单信息（实际应该从URL参数或状态管理获取）
-  const orderInfo = {
-    orderId: 'GS' + Date.now().toString().slice(-6),
+  const [orderNumber, setOrderNumber] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState({
+    paymentStatus: 'pending',
+    remainingMinutes: 30,
+    remainingSeconds: 0,
+    totalSeconds: 1800, // 30分钟 = 1800秒
+    formattedTime: '30:00',
+    isExpired: false,
+    totalAmount: 0,
+    paymentTime: null as Date | null,
+    paymentMethod: null as string | null
+  });
+  const [localCountdown, setLocalCountdown] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [orderInfo, setOrderInfo] = useState({
+    orderId: '',
     projectTitle: '智能家居控制系统设计',
     package: 'M档套餐',
     totalAmount: 1699,
     depositAmount: 850, // 50%定金
     remainingAmount: 849
+  });
+
+  // 从URL参数获取订单信息并检查支付状态
+  useEffect(() => {
+    const orderNumberParam = searchParams.get('orderNumber');
+    const orderId = searchParams.get('orderId');
+    
+    if (orderNumberParam) {
+      setOrderNumber(orderNumberParam);
+      setOrderInfo(prev => ({
+        ...prev,
+        orderId: orderNumberParam
+      }));
+      // 立即检查支付状态
+      checkPaymentStatus(orderNumberParam);
+    } else if (orderId) {
+      setOrderNumber(orderId);
+      setOrderInfo(prev => ({
+        ...prev,
+        orderId: orderId
+      }));
+      checkPaymentStatus(orderId);
+    } else {
+      // 如果没有订单号，生成一个临时的（仅在客户端）
+      const tempId = 'GS' + Date.now().toString().slice(-6);
+      setOrderNumber(tempId);
+      setOrderInfo(prev => ({
+        ...prev,
+        orderId: tempId
+      }));
+    }
+  }, [searchParams]);
+
+  // 检查支付状态
+  const checkPaymentStatus = async (orderNum: string) => {
+    if (!orderNum) return;
+    
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/payment/status/${orderNum}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setPaymentStatus(data.data);
+        // 如果已支付，更新订单信息
+        if (data.data.paymentStatus === 'paid') {
+          console.log('✅ 订单已支付');
+        } else if (data.data.isExpired) {
+          console.log('⏰ 订单支付已过期');
+        }
+      }
+    } catch (error) {
+      console.error('检查支付状态失败:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 本地实时倒计时
+  useEffect(() => {
+    if (!paymentStatus.totalSeconds || paymentStatus.paymentStatus === 'paid' || paymentStatus.isExpired) {
+      setLocalCountdown('');
+      return;
+    }
+
+    let remainingSeconds = paymentStatus.totalSeconds;
+    
+    const updateCountdown = () => {
+      if (remainingSeconds <= 0) {
+        setLocalCountdown('00:00');
+        setPaymentStatus(prev => ({ ...prev, isExpired: true }));
+        return;
+      }
+      
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      setLocalCountdown(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+      remainingSeconds--;
+    };
+
+    updateCountdown(); // 立即执行一次
+    const interval = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(interval);
+  }, [paymentStatus.totalSeconds, paymentStatus.paymentStatus, paymentStatus.isExpired]);
+
+  // 定时刷新支付状态（每2分钟同步一次服务器时间）
+  useEffect(() => {
+    if (!orderNumber || paymentStatus.paymentStatus === 'paid') return;
+    
+    const interval = setInterval(() => {
+      checkPaymentStatus(orderNumber);
+    }, 120000); // 每2分钟检查一次
+    
+    return () => clearInterval(interval);
+  }, [orderNumber, paymentStatus.paymentStatus]);
+
+  // 手动确认支付
+  const handleConfirmPayment = async () => {
+    if (!orderNumber || !selectedPayment) return;
+    
+    setLoading(true);
+    try {
+      const response = await fetch('/api/payment/confirm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderNumber,
+          paymentMethod: selectedPayment,
+          isManual: true,
+          operator: 'customer_self_confirm'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        alert('✅ 支付确认成功！');
+        // 重新检查状态
+        await checkPaymentStatus(orderNumber);
+      } else {
+        alert('❌ 支付确认失败：' + data.message);
+      }
+    } catch (error) {
+      console.error('确认支付失败:', error);
+      alert('❌ 支付确认失败，请联系客服');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyToClipboard = (text: string) => {
@@ -50,6 +192,26 @@ export default function PaymentPage() {
             <p className="text-gray-600">
               请选择支付方式完成订单支付
             </p>
+            
+            {/* 支付状态和倒计时显示 */}
+            <div className="mt-4 flex justify-center">
+              {paymentStatus.paymentStatus === 'paid' ? (
+                <Badge className="bg-green-100 text-green-800 px-4 py-2">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  支付已完成
+                </Badge>
+              ) : paymentStatus.isExpired ? (
+                <Badge className="bg-red-100 text-red-800 px-4 py-2">
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                  支付已过期
+                </Badge>
+              ) : (
+                <Badge className="bg-orange-100 text-orange-800 px-4 py-2 text-lg font-mono">
+                  <Timer className="w-4 h-4 mr-2" />
+                  剩余支付时间：{localCountdown || paymentStatus.formattedTime || '30:00'}
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -64,9 +226,26 @@ export default function PaymentPage() {
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
                   订单详情
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => checkPaymentStatus(orderNumber)}
+                    disabled={loading}
+                  >
+                    <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                  </Button>
                 </CardTitle>
                 <CardDescription>
                   订单号：{orderInfo.orderId}
+                  <br />
+                  支付状态：
+                  <span className={`ml-1 ${
+                    paymentStatus.paymentStatus === 'paid' ? 'text-green-600' :
+                    paymentStatus.isExpired ? 'text-red-600' : 'text-orange-600'
+                  }`}>
+                    {paymentStatus.paymentStatus === 'paid' ? '已支付' :
+                     paymentStatus.isExpired ? '已过期' : '待支付'}
+                  </span>
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -305,12 +484,21 @@ export default function PaymentPage() {
                   
                   <div className="pt-4 border-t border-green-200">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button className="bg-green-600 hover:bg-green-700 text-white">
+                      <Button 
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        onClick={handleConfirmPayment}
+                        disabled={loading || paymentStatus.paymentStatus === 'paid' || paymentStatus.isExpired}
+                      >
+                        {loading ? '确认中...' : '✅ 我已支付，确认订单'}
+                      </Button>
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                         📱 联系客服确认支付
                       </Button>
-                      <Button variant="outline" className="border-green-600 text-green-600">
-                        📋 查看项目进度
-                      </Button>
+                      <Link href={`/tracking?orderNumber=${orderNumber}`}>
+                        <Button variant="outline" className="border-green-600 text-green-600 w-full">
+                          📋 查看项目进度
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>

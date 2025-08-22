@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端API调试工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #0070f3;
+            outline: none;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #0051a2;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 前端订单系统调试工具</h1>
+        
+        <div class="info">
+            <strong>📝 使用说明:</strong><br/>
+            这个工具可以帮你测试订单提交功能是否正常。填写表单并提交，查看是否能成功创建订单。
+        </div>
+
+        <h2>订单信息</h2>
+        <form id="testForm">
+            <div class="form-group">
+                <label for="name">👤 姓名 *</label>
+                <input type="text" id="name" name="name" value="张三" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">📱 手机号 *</label>
+                <input type="tel" id="phone" name="phone" value="13812345678" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">📧 邮箱 *</label>
+                <input type="email" id="email" name="email" value="zhangsan@test.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="school">🏫 学校 *</label>
+                <input type="text" id="school" name="school" value="测试大学" required>
+            </div>
+
+            <div class="form-group">
+                <label for="major">📚 专业 *</label>
+                <input type="text" id="major" name="major" value="计算机科学" required>
+            </div>
+
+            <div class="form-group">
+                <label for="projectTitle">💡 项目标题 *</label>
+                <input type="text" id="projectTitle" name="projectTitle" value="基于AI的智能推荐系统" required>
+            </div>
+
+            <div class="form-group">
+                <label for="requirements">📋 项目需求 *</label>
+                <textarea id="requirements" name="requirements" rows="4" required>实现一个基于深度学习的智能推荐算法，包含用户行为分析、协同过滤、内容推荐等功能模块。</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="deadline">📅 截止日期 *</label>
+                <input type="date" id="deadline" name="deadline" value="2025-06-01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="package">💰 套餐选择 *</label>
+                <select id="package" name="package" required>
+                    <option value="S">指导版 - ¥1599</option>
+                    <option value="M" selected>实战版 - ¥2999</option>
+                    <option value="L">VIP版 - ¥4999</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submitBtn">🚀 测试提交订单</button>
+            <button type="button" onclick="clearResult()">🗑️ 清除结果</button>
+            <button type="button" onclick="fillRandomData()">🎲 随机填充</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('testForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultDiv = document.getElementById('result');
+
+        function showResult(message, type = 'loading') {
+            resultDiv.className = `result ${type}`;
+            resultDiv.textContent = message;
+        }
+
+        function clearResult() {
+            resultDiv.className = '';
+            resultDiv.textContent = '';
+        }
+
+        function fillRandomData() {
+            const names = ['李明', '王小红', '张伟', '刘洋', '陈思'];
+            const schools = ['北京大学', '清华大学', '复旦大学', '上海交大', '中山大学'];
+            const majors = ['计算机科学', '软件工程', '数据科学', '人工智能', '网络工程'];
+            const projects = [
+                '基于深度学习的智能问答系统',
+                '区块链技术在供应链中的应用',
+                '智能家居控制系统设计',
+                '移动端社交应用开发',
+                '机器学习推荐算法研究'
+            ];
+
+            const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            const randomPhone = () => '138' + Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+            const randomEmail = (name) => name.toLowerCase() + Math.floor(Math.random() * 1000) + '@test.com';
+
+            const name = randomChoice(names);
+            document.getElementById('name').value = name;
+            document.getElementById('phone').value = randomPhone();
+            document.getElementById('email').value = randomEmail(name);
+            document.getElementById('school').value = randomChoice(schools);
+            document.getElementById('major').value = randomChoice(majors);
+            document.getElementById('projectTitle').value = randomChoice(projects);
+            
+            showResult('✅ 已随机填充测试数据', 'success');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            console.log('🚀 开始提交订单测试...');
+            
+            // 禁用按钮防止重复提交
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ 提交中...';
+            
+            showResult('正在提交订单，请稍候...', 'loading');
+
+            try {
+                // 构建订单数据
+                const orderData = {
+                    customerInfo: {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        school: document.getElementById('school').value,
+                        major: document.getElementById('major').value
+                    },
+                    projectInfo: {
+                        title: document.getElementById('projectTitle').value,
+                        type: document.getElementById('package').value === 'S' ? 'guidance' : 
+                              document.getElementById('package').value === 'M' ? 'practical' : 'vip',
+                        requirements: document.getElementById('requirements').value,
+                        deadline: document.getElementById('deadline').value
+                    },
+                    pricing: {
+                        basePrice: document.getElementById('package').value === 'S' ? 1599 : 
+                                  document.getElementById('package').value === 'M' ? 2999 : 4999,
+                        totalAmount: document.getElementById('package').value === 'S' ? 1599 : 
+                                    document.getElementById('package').value === 'M' ? 2999 : 4999,
+                        additionalServices: []
+                    }
+                };
+
+                console.log('📝 发送数据:', JSON.stringify(orderData, null, 2));
+
+                // 发送API请求
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                console.log('📡 响应状态:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态码: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('📋 响应结果:', result);
+
+                if (result.success) {
+                    showResult(`🎉 订单创建成功！
+
+📋 订单详情:
+   订单号: ${result.data.orderNumber}
+   订单ID: ${result.data.orderId}
+
+🔗 快速链接:
+   - 订单追踪: /tracking
+   - 支付页面: /payment?orderNumber=${result.data.orderNumber}&orderId=${result.data.orderId}
+
+📝 手机验证码: ${orderData.customerInfo.phone.slice(-4)}
+
+✅ 说明API工作正常，如果原页面仍有问题，请检查表单验证或浏览器控制台错误。`, 'success');
+
+                } else {
+                    showResult(`❌ 订单创建失败:
+
+错误信息: ${result.error.message || '未知错误'}
+错误代码: ${result.error.code || 'UNKNOWN'}
+
+🔧 可能的解决方案:
+1. 检查所有必填字段是否已填写
+2. 确认邮箱和手机号格式正确
+3. 检查网络连接
+4. 查看浏览器控制台的详细错误信息`, 'error');
+                }
+
+            } catch (error) {
+                console.error('❌ 提交失败:', error);
+                showResult(`❌ 网络错误: ${error.message}
+
+🔧 排查步骤:
+1. 确认开发服务器运行在 http://localhost:3000
+2. 检查网络连接是否正常
+3. 查看浏览器控制台的详细错误信息
+4. 确认防火墙没有阻止请求
+
+💡 如果这个测试页面都无法提交，说明是API或服务器问题
+   如果这个页面能提交但原页面不行，说明是前端表单验证问题`, 'error');
+            } finally {
+                // 恢复按钮状态
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 测试提交订单';
+            }
+        });
+
+        // 页面加载时测试连接
+        window.addEventListener('load', async () => {
+            try {
+                showResult('🔍 正在检测服务器连接...', 'loading');
+                const response = await fetch('/');
+                if (response.ok) {
+                    console.log('✅ 服务器连接正常');
+                    showResult('✅ 服务器连接正常，可以开始测试', 'success');
+                } else {
+                    console.log('⚠️ 服务器响应异常:', response.status);
+                    showResult(`⚠️ 服务器响应异常: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                console.error('❌ 服务器连接失败:', error);
+                showResult('❌ 警告: 无法连接到服务器，请确保开发服务器正在运行 (npm run dev)', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

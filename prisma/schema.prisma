@@ -1,0 +1,119 @@
+// 毕设助手 - 订单追踪系统数据库模型
+// 支持SQLite本地开发 + PostgreSQL生产环境
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// 订单主表
+model Order {
+  id              String   @id @default(cuid())
+  orderNumber     String   @unique @map("order_number")
+  status          String   @default("pending")
+  
+  // 客户信息
+  customerName    String   @map("customer_name")
+  customerEmail   String   @map("customer_email") 
+  customerPhone   String   @map("customer_phone")
+  customerSchool  String?  @map("customer_school")
+  customerMajor   String?  @map("customer_major")
+  
+  // 项目信息
+  projectTitle    String   @map("project_title")
+  projectType     String   @map("project_type") // guidance, practical, vip
+  requirements    String?
+  deadline        DateTime?
+  
+  // 价格信息
+  basePrice       Float    @map("base_price")
+  totalAmount     Float    @map("total_amount")
+  additionalServices String? @map("additional_services") // JSON string
+  
+  // 支付信息
+  paymentStatus   String   @default("pending") @map("payment_status") // pending, paid, expired, cancelled
+  paymentMethod   String?  @map("payment_method") // alipay, wechat, manual
+  paymentTime     DateTime? @map("payment_time")
+  paymentDeadline DateTime? @map("payment_deadline") // 支付截止时间（下单后30分钟）
+  transactionId   String?  @map("transaction_id") // 第三方支付流水号
+  
+  // 时间信息
+  estimatedDelivery DateTime? @map("estimated_delivery")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  // 关联表
+  statusHistory   StatusHistory[]
+  deliverables    Deliverable[]
+  messages        Message[]
+  
+  @@map("orders")
+}
+
+// 订单状态历史表
+model StatusHistory {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  status    String
+  message   String?
+  operator  String?  // 操作人员
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  // 关联订单
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  @@map("status_history")
+}
+
+// 交付文件表
+model Deliverable {
+  id           String   @id @default(cuid())
+  orderId      String   @map("order_id")
+  filename     String   // 存储的文件名
+  originalName String   @map("original_name") // 原始文件名
+  fileSize     Int      @map("file_size")
+  fileType     String   @map("file_type")
+  category     String   // draft, final, source, documentation
+  description  String?
+  downloadCount Int     @default(0) @map("download_count")
+  createdAt    DateTime @default(now()) @map("created_at")
+  
+  // 关联订单
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  @@map("deliverables")
+}
+
+// 消息表
+model Message {
+  id         String   @id @default(cuid())
+  orderId    String   @map("order_id")
+  senderType String   @map("sender_type") // customer, admin
+  senderName String   @map("sender_name")
+  content    String
+  attachments String? // JSON string for file attachments
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  // 关联订单
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  @@map("messages")
+}
+
+// 管理员表
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypt hash
+  name      String
+  role      String   @default("admin") // admin, super_admin
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  @@map("admins")
+}

@@ -1,0 +1,10 @@
+[33m1830719[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m feat: complete Linear-style homepage transformation
+[33m595e34a[m feat: implement Linear's authentic LCH color system and typography
+[33me0a7394[m fix(typography): resolve text layout and word wrapping issues
+[33m6d4c05c[m feat(design): implement Linear design system
+[33m54fc215[m[33m ([m[1;33mtag: [m[1;33mv1.0.0-stable[m[33m, [m[1;31morigin/backup-v1.0.0[m[33m, [m[1;32mbackup-v1.0.0[m[33m)[m feat(favicon): update website favicon with new custom icon
+[33m7d163a5[m feat(cleanup): update policy dates and remove CTA section
+[33mbb65e5d[m feat(content): update website content and branding
+[33m934944c[m fix(build): resolve all ESLint errors for successful deployment
+[33m4b7a3f7[m feat(pricing): update L-tier to 1,799 + favicon updated
+[33ma03c4b0[m feat(pages): complete website infrastructure with all essential pages
