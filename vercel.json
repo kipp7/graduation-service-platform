@@ -14,7 +14,7 @@
   "crons": [
     {
       "path": "/api/admin/expired-orders",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
